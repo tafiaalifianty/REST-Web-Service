@@ -31,6 +31,11 @@ Route::group(['prefix' => 'v1'], function ($router) {
         Route::get('/{id}', [UserController::class, 'show']);
     });
 
+    Route::group(['middleware' => 'auth:api', 'prefix' => 'ticket'], function ($router) {
+        Route::get('/{id}', [TicketController::class, 'show']);
+        Route::get('/user/{user_id}', [TicketController::class, 'user']);
+    });
+
     Route::group(['middleware' => 'auth:api', 'prefix' => 'pembelian'], function ($router) {
         Route::get('/{id}', [OrderController::class, 'show']);
         Route::post('/{user_id}', [OrderController::class, 'store']);

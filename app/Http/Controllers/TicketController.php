@@ -25,8 +25,8 @@ class TicketController extends Controller
 
     public function user($user_id) 
     {
-        $tickets = Ticket::pimp()->find(['user_id' => $user_id]);
-        if (!$tickets) {
+        $tickets = Ticket::pimp()->where(['user_id' => $user_id])->get();
+        if (!$tickets or count($tickets) < 1) {
             return response()->json([
                 'status' => 200,
                 'message' => "Tiket tidak ditemukan pada user ID: ". $user_id

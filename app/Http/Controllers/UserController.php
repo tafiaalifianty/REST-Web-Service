@@ -7,14 +7,19 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        return response()->json(User::pimp()->find($id));
+        $user = User::pimp()->find($id);
+        if (!$user) {
+            return response()->json([
+                'status' => 200,
+                'message' => "Pengguna tidak ditemukan"
+            ], 404);    
+        }
+
+        return response()->json([
+            'status' => 200,
+            'data' => $user
+        ], 200);
     }
 }

@@ -56,11 +56,17 @@ class AuthController extends Controller
         ]);
         
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json([
+                'status' => 400,
+                'messages' => $validator->errors()
+            ], 400);
         }
 
         if (!$token = Auth::attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json([
+                'status' => 401,
+                'message' => 'Email belum terdaftar'
+            ], 401);
         }
 
         return $this->createNewToken($token);
@@ -106,7 +112,10 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
+            return response()->json([
+                'status' => 400,
+                'messages' => $validator->errors()
+            ], 400);
         }
 
         DB::beginTransaction();
@@ -119,8 +128,10 @@ class AuthController extends Controller
             return $this->createNewToken($token);
         } catch (\Exception $e) {
             DB::rollBack();
-            //return error message
-            return response()->json(['message' => 'User registration failed!'], 500);
+            return response()->json([
+                'status' => 500,
+                'message' => 'Internal server error'
+            ], 500);
         }
     }
 
@@ -149,7 +160,10 @@ class AuthController extends Controller
      */
     public function logout() {
         Auth::logout();
-        return response()->json(['message' => 'User successfully signed out']);
+        return response()->json([
+            'status' => 200,
+            'message' => 'Berhasil log out'
+        ], 200);
     }
 
     /**
@@ -203,7 +217,10 @@ class AuthController extends Controller
      * )
      */
     public function me() {
-        return response()->json(auth()->user());
+        return response()->json([
+            'status' => 200,
+            'data' => auth()->user()
+        ], 200);
     }
 
     /**
@@ -215,10 +232,11 @@ class AuthController extends Controller
      */
     protected function createNewToken($token) {
         return response()->json([
+            'status' => 200,
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => Auth::factory()->getTTL() * 60,
-            'user' => auth()->user()
+            'data' => auth()->user()
         ]);
     }
 }

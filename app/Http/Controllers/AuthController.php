@@ -153,18 +153,54 @@ class AuthController extends Controller
     }
 
     /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Post(
+     *     path="/auth/refresh",
+     *     tags={"Authentication"},
+     *     summary="Refresh JWT token",
+     *     description="Refresh JWT token",
+     *     operationId="refresh",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *          response=200,
+     *          description="Refresh token success",
+     *          @OA\JsonContent(ref="#/components/schemas/Auth")
+     *     ),
+     *     @OA\Response(
+     *         response=405,
+     *         description="Method not allowed (Unauthenticated)",
+     *     ),
+     *     @OA\Response(
+     *        response=500,
+     *        description="Internal server error"
+     *     )
+     * )
      */
     public function refresh() {
         return $this->createNewToken(Auth::refresh());
     }
 
     /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Get(
+     *     path="/auth/me",
+     *     tags={"Authentication"},
+     *     summary="Get authenticated's user data",
+     *     description="Get authenticated's user data",
+     *     operationId="me",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *          response=200,
+     *          description="User data",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *     ),
+     *     @OA\Response(
+     *         response=405,
+     *         description="Method not allowed (Unauthenticated)",
+     *     ),
+     *     @OA\Response(
+     *        response=500,
+     *        description="Internal server error"
+     *     )
+     * )
      */
     public function me() {
         return response()->json(auth()->user());

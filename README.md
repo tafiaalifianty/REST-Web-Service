@@ -24,7 +24,6 @@ This is the API documentation of this project:
 - Swagger: 
 
   -- Development: `http://localhost:8000/api/documentation`
-  
   -- Live: <a href="https://bus-ticket-rest-api.herokuapp.com/api/documentation" target="__blank">click here</a>
 
 ## Prerequisites

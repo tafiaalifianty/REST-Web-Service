@@ -10,12 +10,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
-    public function __construct() {
+    public function __construct() 
+    {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
@@ -49,7 +45,8 @@ class AuthController extends Controller
      *     )
      * )
      */
-    public function login(Request $request) {
+    public function login(Request $request) 
+    {
     	$validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:6',
@@ -102,7 +99,8 @@ class AuthController extends Controller
      *     )
      * )
      */
-    public function register(Request $request) {
+    public function register(Request $request) 
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
@@ -158,7 +156,8 @@ class AuthController extends Controller
      *     )
      * )
      */
-    public function logout() {
+    public function logout() 
+    {
         Auth::logout();
         return response()->json([
             'status' => 200,
@@ -189,7 +188,8 @@ class AuthController extends Controller
      *     )
      * )
      */
-    public function refresh() {
+    public function refresh() 
+    {
         return $this->createNewToken(Auth::refresh());
     }
 
@@ -216,7 +216,8 @@ class AuthController extends Controller
      *     )
      * )
      */
-    public function me() {
+    public function me() 
+    {
         return response()->json([
             'status' => 200,
             'data' => auth()->user()
@@ -230,7 +231,8 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function createNewToken($token) {
+    protected function createNewToken($token) 
+    {
         return response()->json([
             'status' => 200,
             'access_token' => $token,

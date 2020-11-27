@@ -1,0 +1,230 @@
+openapi: 3.0.0
+info:
+  title: 'Bus Ticket RESTful API Documentation'
+  description: 'Bus Ticket RESTful API Documentation'
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: ayungavis@gmail.com
+  license:
+    name: 'Apache 2.0'
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost:8000/api/v1'
+    description: 'Demo API server'
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: 'Login to user account'
+      description: 'Login to user account'
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        200:
+          description: 'Login success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Auth'
+        400:
+          description: 'Bad request'
+        405:
+          description: 'Method not allowed (Unauthenticated)'
+        500:
+          description: 'Internal server error'
+  /auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: 'Register new account'
+      description: 'Register new account'
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        200:
+          description: 'Register success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Auth'
+        400:
+          description: 'Bad request'
+        405:
+          description: 'Method not allowed (Unauthenticated)'
+        500:
+          description: 'Internal server error'
+  /auth/logout:
+    post:
+      tags:
+        - Authentication
+      summary: 'Logout auth session'
+      description: 'Logout auth session'
+      operationId: logout
+      responses:
+        200:
+          description: 'User successfully signed out'
+        405:
+          description: 'Method not allowed (Unauthenticated)'
+        500:
+          description: 'Internal server error'
+      security:
+        -
+          bearerAuth: []
+components:
+  schemas:
+    LoginRequest:
+      title: 'Login Request'
+      description: 'Login request body data'
+      required:
+        - email
+        - password
+      properties:
+        email:
+          title: email
+          description: 'Email of the user'
+          type: string
+          example: johndoe@mail.com
+        password:
+          title: password
+          description: 'Password of the user'
+          type: string
+          example: yourpassword
+      type: object
+    Auth:
+      title: Auth
+      description: 'Auth model'
+      properties:
+        access_token:
+          title: 'Access token'
+          description: 'JWT access token'
+          type: string
+          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL3YxL2F1dGgvbG9naW4iLCJpYXQiOjE2MDY0NTc2MDksImV4cCI6MTYwNjQ2MTIwOSwibmJmIjoxNjA2NDU3NjA5LCJqdGkiOiJBY29DeWJrRUN2dVdnRjA4Iiwic3ViIjoxLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.ImW2CEVjdNxEYaVA-bVUc5wFL5IyPbuXIxeIep_QzKo
+        token_type:
+          title: 'Token type'
+          description: 'Authentication token type'
+          type: string
+          example: bearer
+        expires_in:
+          title: 'Expires in'
+          description: 'Token expires duration'
+          type: integer
+          example: 3600
+        user:
+          title: User
+          description: 'User data'
+      type: object
+      xml:
+        name: Auth
+    User:
+      title: User
+      description: 'User model'
+      properties:
+        id:
+          title: ID
+          description: ID
+          type: integer
+          format: int64
+          example: 1
+        name:
+          title: Name
+          description: 'Name of the user'
+          type: string
+          example: 'John Doe'
+        email:
+          title: Email
+          description: 'Email of the user'
+          type: string
+          example: johndoe@mail.com
+        email_verified_at:
+          title: 'Email verified datetime'
+          description: 'Email verified datetime of the user'
+          type: string
+          format: datetime
+          example: '2020-11-27 01:55:43'
+        age:
+          title: Age
+          description: 'Age of the user'
+          type: integer
+          example: '1'
+        city:
+          title: City
+          description: 'City of the user'
+          type: string
+          example: 'Los Angeles'
+        created_at:
+          title: 'Created at'
+          description: 'Created at'
+          type: string
+          format: datetime
+          example: '2020-11-27 01:55:43'
+        updated_at:
+          title: 'Updated at'
+          description: 'Updated at'
+          type: string
+          format: datetime
+          example: '2020-11-27 01:55:43'
+      type: object
+      xml:
+        name: User
+    RegisterRequest:
+      title: 'Register Request'
+      description: 'Register request body data'
+      required:
+        - email
+        - password
+        - password_confirmation
+        - age
+        - city
+      properties:
+        email:
+          title: email
+          description: Email
+          type: string
+          example: johndoe@mail.com
+        password:
+          title: password
+          description: Password
+          type: string
+          example: yourpassword
+        password_confirmation:
+          title: password_confirmation
+          description: 'Password confirmation'
+          type: string
+          example: yourpassword
+        age:
+          title: age
+          description: Age
+          type: integer
+          example: 18
+        city:
+          title: city
+          description: City
+          type: string
+          example: 'Los Angeles'
+      type: object
+  securitySchemes:
+    bearerAuth:
+      type: http
+      name: bearerAuth
+      in: header
+      bearerFormat: JWT
+      scheme: bearer
+tags:
+  -
+    name: Authentication
+    description: 'All authentication methods (login, register, logout, etc)'
+security:
+  - []

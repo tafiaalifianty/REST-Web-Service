@@ -20,34 +20,32 @@ class AuthController extends Controller
     }
 
      /**
-     * @OA\Get(
+     * @OA\Post(
      *     path="/auth/login",
      *     tags={"Authentication"},
      *     summary="Login to user account",
      *     description="Login to user account",
      *     operationId="login",
-     *     @OA\Parameter(
-     *          name="email",
-     *          description="yourmail@mail.com",
+     *     @OA\RequestBody(
      *          required=true,
-     *          in="body",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *     ),
-     *     @OA\Parameter(
-     *          name="password",
-     *          description="yourpassword",
-     *          required=true,
-     *          in="body",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
+     *          @OA\JsonContent(ref="#/components/schemas/LoginRequest")
      *     ),
      *     @OA\Response(
-     *         response=200,
-     *         response="default",
-     *         description="successful operation"
+     *          response=200,
+     *          description="Login success",
+     *          @OA\JsonContent(ref="#/components/schemas/Auth")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad request"
+     *     ),
+     *     @OA\Response(
+     *         response=405,
+     *         description="Method not allowed (Unauthenticated)",
+     *     ),
+     *     @OA\Response(
+     *        response=500,
+     *        description="Internal server error"
      *     )
      * )
      */
@@ -69,9 +67,34 @@ class AuthController extends Controller
     }
 
     /**
-     * Register a User.
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Post(
+     *     path="/auth/register",
+     *     tags={"Authentication"},
+     *     summary="Register new account",
+     *     description="Register new account",
+     *     operationId="register",
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/RegisterRequest")
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Register success",
+     *          @OA\JsonContent(ref="#/components/schemas/Auth")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad request"
+     *     ),
+     *     @OA\Response(
+     *         response=405,
+     *         description="Method not allowed (Unauthenticated)",
+     *     ),
+     *     @OA\Response(
+     *        response=500,
+     *        description="Internal server error"
+     *     )
+     * )
      */
     public function register(Request $request) {
         $validator = Validator::make($request->all(), [
@@ -89,13 +112,11 @@ class AuthController extends Controller
         DB::beginTransaction();
         
         try {
-            $user = User::create(array_merge($validator->validated(), ['password' => bcrypt($request->password)]));
+            User::create(array_merge($validator->validated(), ['password' => bcrypt($request->password)]));
+            $token = Auth::attempt($validator->validated());
 
             DB::commit();
-            return response()->json([
-                'message' => 'User successfully registered',
-                'user' => $user
-            ], 201);
+            return $this->createNewToken($token);
         } catch (\Exception $e) {
             DB::rollBack();
             //return error message
@@ -105,9 +126,26 @@ class AuthController extends Controller
 
 
     /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Post(
+     *     path="/auth/logout",
+     *     tags={"Authentication"},
+     *     summary="Logout auth session",
+     *     description="Logout auth session",
+     *     operationId="logout",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *          response=200,
+     *          description="User successfully signed out"
+     *     ),
+     *     @OA\Response(
+     *         response=405,
+     *         description="Method not allowed (Unauthenticated)",
+     *     ),
+     *     @OA\Response(
+     *        response=500,
+     *        description="Internal server error"
+     *     )
+     * )
      */
     public function logout() {
         Auth::logout();

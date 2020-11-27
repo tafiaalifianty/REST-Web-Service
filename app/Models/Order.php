@@ -25,6 +25,11 @@ class Order extends Model
         return $this->hasOne('App\Models\Snapshot', 'order_id');
     }
 
+    public function ticket() 
+    {
+        return $this->hasOne('App\Models\Ticket', 'order_id');
+    }
+
     public function user() 
     {
         return $this->belongsTo('App\Models\User', 'user_id');

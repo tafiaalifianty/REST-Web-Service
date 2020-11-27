@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Uuid;
 
 class PaymentController extends Controller
 {
+    public function __construct()
+    {
+        $this->uuid = Uuid::uuid4();
+    }
+
     public function store(Request $request, $order_id)
     {
         $validator = Validator::make($request->all(), [
@@ -26,7 +33,7 @@ class PaymentController extends Controller
             ], 400);
         }
 
-        $order = Order::find($order_id);
+        $order = Order::with('snapshot')->find($order_id);
         if (!$order) {
             return response()->json([
                 'status' => 404,
@@ -51,10 +58,10 @@ class PaymentController extends Controller
         DB::beginTransaction();
 
         try {
+            $main_url = env('APP_ENV') == 'production' ? env('APP_URL') : env('APP_URL').':8000';
             $image_path = 'images';
-            $image_name = time() .'.'. $request->payment_proof->extension();
-            $image_url = env('APP_URL', 'http://localhost') .'/'. $image_path .'/'. $image_name;
-            $request->payment_proof->move(public_path('images'), $image_name);
+            $image_name = $this->uuid->toString() .'.'. $request->payment_proof->extension();
+            $image_url = $main_url .'/'. $image_path .'/'. $image_name;
 
             $payment = Payment::create(array_merge($validator->validated(), [
                 'user_id' => auth()->user()->id,
@@ -65,9 +72,21 @@ class PaymentController extends Controller
             if ($payment) {
                 $order->status = 'settled';
                 $order->save();
+
+                $snapshot = $order->snapshot->toArray();
+                unset($snapshot['id']);
+                unset($snapshot['created_at']);
+                unset($snapshot['updated_at']);
+                
+                Ticket::create(array_merge($snapshot, [
+                    'user_id' => auth()->user()->id,
+                    'order_id' => $order_id   
+                ]));
             }
 
             DB::commit();
+
+            $request->payment_proof->move(public_path('images'), $image_name);
 
             return response()->json([
                 'status' => 200,

@@ -16,6 +16,7 @@ Bus Ticket RESTful API was developed for complete an assignment. This project wa
 - Swagger API Documentation
 - Docker
 
+
 ## Documentation
 
 This is the API documentation of this project:
@@ -25,12 +26,14 @@ This is the API documentation of this project:
 - Development: `http://localhost:8000/api/documentation`
 - Live: <a href="https://bus-ticket-rest-api.herokuapp.com/api/documentation" target="__blank">click here</a>
 
+
 ## Prerequisites
 
 Before you run this project in your local computer, you need to install some applications:
 
 - Docker => `^v19.x.x` 
 - Docker Compose => `^v1.26.x`
+
 
 ## Installation
 
@@ -55,6 +58,7 @@ bd50f1caa8fd        nginx:alpine           "/docker-entrypoint.…"   7 hours ag
 9.  Done, you can check `http://localhost:8000` in your browser
 10. If it's show Laravel Homepage, it's work!
 
+
 ## Generate Swagger Documentation
 
 If you want to generate or re-generate the swagger documentation, you can use this command:
@@ -62,6 +66,7 @@ If you want to generate or re-generate the swagger documentation, you can use th
 ```
 $ docker-compose exec app php artisan l5-swagger:generate
 ```
+
 
 ## Deploy to Heroku
 
@@ -77,6 +82,7 @@ If you want to deploy this project to Heroku, you can follow the instructions be
 6. In Manual Deploy, click branch master and click Deploy Branch
 7. If everything's ok, it'll work
 
+
 ### Add MySQL Database
 
 1. Go to Resources page
@@ -85,6 +91,7 @@ If you want to deploy this project to Heroku, you can follow the instructions be
 4. Done, you've added MySQL to your Heroku App
 
 <strong>NOTE:</strong> You need to add credit card to your Heroku Account.
+
 
 ### Configure Heroku App
 
@@ -114,6 +121,7 @@ mysql://ba788ac49d691d:f2e3396d@us-cdbr-east-02.cleardb.com/heroku_6a082a7fe8788
 
 4. So, there are the values for `DB_HOST`, `DB_USERNAME`, `DB_PASSWORD`, and `DB_DATABASE`.
 
+
 ### Migrate Database in Heroku
 
 1. After all Config Vars was set, you can scroll up until you see More button in right top of the page
@@ -121,9 +129,11 @@ mysql://ba788ac49d691d:f2e3396d@us-cdbr-east-02.cleardb.com/heroku_6a082a7fe8788
 3. Type `php artisan migrate` and click Run
 4. Done, you've migrate it to your MySQL Database in Heroku App
 
+
 ### Done
 
 Okay, if you have follow all the instructions above, your Heroku App was live and can be used publicly.
+
 
 ## Environment
 
@@ -188,6 +198,7 @@ L5_SWAGGER_CONST_HOST=http://localhost:8000/api/v1
 L5_SWAGGER_GENERATE_ALWAYS=true
 L5_SWAGGER_GENERATE_YAML_COPY=true
 ```
+
 
 ## License
 

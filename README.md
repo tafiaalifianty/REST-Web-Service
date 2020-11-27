@@ -16,6 +16,15 @@ Bus Ticket RESTful API was developed for complete an assignment. This project wa
 - Swagger API Documentation
 - Docker
 
+## Documentation
+
+This is the API documentation of this project:
+
+- Postman: <a href="https://documenter.getpostman.com/view/6501660/TVmHFfUH" target="__blank">click here</a>
+- Swagger: 
+  -- Development: `http://localhost:8000/api/documentation`
+  -- Live: <a href="https://bus-ticket-rest-api.herokuapp.com/api/documentation" target="__blank">click here</a>
+
 ## Prerequisites
 
 Before you run this project in your local computer, you need to install some applications:
@@ -182,4 +191,5 @@ L5_SWAGGER_GENERATE_YAML_COPY=true
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+&copy; 2020 All rights reserved.
+This project is [MIT](https://choosealicense.com/licenses/mit/) licensed.

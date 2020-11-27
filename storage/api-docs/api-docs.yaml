@@ -4,7 +4,7 @@ info:
   description: 'Bus Ticket RESTful API Documentation'
   termsOfService: 'http://swagger.io/terms/'
   contact:
-    email: ayungavis@gmail.com
+    email: tafiaalifianty@students.itb.ac.id
   license:
     name: 'Apache 2.0'
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
@@ -125,6 +125,158 @@ paths:
       security:
         -
           bearerAuth: []
+  '/pembelian/{id}':
+    get:
+      tags:
+        - Order
+      summary: 'Get order detail'
+      description: 'Get order detail'
+      operationId: order/id
+      responses:
+        200:
+          description: 'Order data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        404:
+          description: 'Data not found'
+        405:
+          description: 'Method not allowed (Unauthenticated)'
+        500:
+          description: 'Internal server error'
+      security:
+        -
+          bearerAuth: []
+  '/pembelian/{user_id}':
+    post:
+      tags:
+        - Order
+      summary: 'Create order'
+      description: 'Create order'
+      operationId: order/user_id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        200:
+          description: 'Order data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        400:
+          description: 'Validation errors'
+        405:
+          description: 'Method not allowed (Unauthenticated)'
+        500:
+          description: 'Internal server error'
+      security:
+        -
+          bearerAuth: []
+  '/pembayaran/{order_id}':
+    post:
+      tags:
+        - Payment
+      summary: 'Create payment'
+      description: 'Create payment'
+      operationId: payment/order_id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+      responses:
+        200:
+          description: 'Payment data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        400:
+          description: 'Validation errors'
+        404:
+          description: 'Data not found'
+        405:
+          description: 'Method not allowed (Unauthenticated)'
+        500:
+          description: 'Internal server error'
+      security:
+        -
+          bearerAuth: []
+  '/ticket/{id}':
+    get:
+      tags:
+        - Ticket
+      summary: 'Get ticket detail'
+      description: 'Get ticket detail'
+      operationId: ticket/id
+      responses:
+        200:
+          description: 'Ticket data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+        404:
+          description: 'Data not found'
+        405:
+          description: 'Method not allowed (Unauthenticated)'
+        500:
+          description: 'Internal server error'
+      security:
+        -
+          bearerAuth: []
+  '/ticket/user/{user_id}':
+    get:
+      tags:
+        - Ticket
+      summary: 'Get user''s ticket'
+      description: 'Get user''s ticket'
+      operationId: ticket/user/user_id
+      responses:
+        200:
+          description: 'Ticket data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+        404:
+          description: 'Data not found'
+        405:
+          description: 'Method not allowed (Unauthenticated)'
+        500:
+          description: 'Internal server error'
+      security:
+        -
+          bearerAuth: []
+  '/users/{id}':
+    get:
+      tags:
+        - User
+      summary: 'Get user detail'
+      description: 'Get user detail'
+      operationId: user/id
+      responses:
+        200:
+          description: 'User data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        404:
+          description: 'Data not found'
+        405:
+          description: 'Method not allowed (Unauthenticated)'
+        500:
+          description: 'Internal server error'
+      security:
+        -
+          bearerAuth: []
 components:
   schemas:
     LoginRequest:
@@ -144,6 +296,127 @@ components:
           description: 'Password of the user'
           type: string
           example: yourpassword
+      type: object
+    OrderRequest:
+      title: 'Order Request'
+      description: 'Order request body data'
+      properties:
+        bus_name:
+          title: bus_name
+          description: 'Bus name'
+          type: string
+          example: 'Sumber Selamat'
+        ticket_amount:
+          title: ticket_amount
+          description: 'Amount of the ticket'
+          type: integer
+          example: 1
+        seat_position:
+          title: seat_position
+          description: 'Seat position'
+          type: string
+          example: A1
+        departure_city:
+          title: departure_city
+          description: 'Departure city'
+          type: string
+          example: Surabaya
+        departure_bus_station:
+          title: departure_bus_station
+          description: 'Departure bus station name'
+          type: string
+          example: Purabaya
+        departure_date:
+          title: departure_date
+          description: 'Departure date time'
+          type: string
+          format: date-time
+          example: '2020-11-27 01:55:43'
+        arrived_city:
+          title: arrived_city
+          description: 'Arrived city'
+          type: string
+          example: Yogyakarta
+        arrived_bus_station:
+          title: arrived_bus_station
+          description: 'Arrived bus station name'
+          type: string
+          example: Lempuyangan
+        arrived_date:
+          title: arrived_date
+          description: 'Arrived date time'
+          type: string
+          format: date-time
+          example: '2020-11-27 01:55:43'
+        total_price:
+          title: total_price
+          description: 'Total price'
+          type: integer
+          example: 12000
+      type: object
+    PaymentRequest:
+      title: 'Payment Request'
+      description: 'Payment request body data'
+      required:
+        - email
+        - password
+      properties:
+        payment_amount:
+          title: payment_amount
+          description: 'Amount of payment'
+          type: integer
+          example: 12000
+        payment_proof:
+          title: payment_proof
+          description: 'Image of payment proof'
+          type: string
+          example: 'base64:image'
+        bank_name:
+          title: bank_name
+          description: 'Name of the bank'
+          type: string
+          example: Mandiri
+        bank_account:
+          title: bank_account
+          description: 'Bank account'
+          type: string
+          example: '123456789'
+      type: object
+    RegisterRequest:
+      title: 'Register Request'
+      description: 'Register request body data'
+      required:
+        - email
+        - password
+        - password_confirmation
+        - age
+        - city
+      properties:
+        email:
+          title: email
+          description: Email
+          type: string
+          example: johndoe@mail.com
+        password:
+          title: password
+          description: Password
+          type: string
+          example: yourpassword
+        password_confirmation:
+          title: password_confirmation
+          description: 'Password confirmation'
+          type: string
+          example: yourpassword
+        age:
+          title: age
+          description: Age
+          type: integer
+          example: 18
+        city:
+          title: city
+          description: City
+          type: string
+          example: 'Los Angeles'
       type: object
     Auth:
       title: Auth
@@ -170,6 +443,188 @@ components:
       type: object
       xml:
         name: Auth
+    Order:
+      title: Order
+      description: 'Order model'
+      properties:
+        id:
+          title: ID
+          description: ID
+          type: integer
+          format: int64
+          example: 1
+        user_id:
+          title: 'User ID'
+          description: 'User ID'
+          type: string
+          example: 1
+        total_price:
+          title: 'Total price'
+          description: 'Total price'
+          type: integer
+          example: 12000
+        status:
+          title: Status
+          description: 'Order status'
+          type: string
+          example: waiting_payment
+        created_at:
+          title: 'Created at'
+          description: 'Created at'
+          type: string
+          format: datetime
+          example: '2020-11-27 01:55:43'
+        updated_at:
+          title: 'Updated at'
+          description: 'Updated at'
+          type: string
+          format: datetime
+          example: '2020-11-27 01:55:43'
+      type: object
+      xml:
+        name: Order
+    Payment:
+      title: Payment
+      description: 'Payment model'
+      properties:
+        id:
+          title: ID
+          description: ID
+          type: integer
+          format: int64
+          example: 1
+        user_id:
+          title: 'User ID'
+          description: 'User ID'
+          type: string
+          example: 1
+        order_id:
+          title: 'Order ID'
+          description: 'Order ID'
+          type: string
+          example: 1
+        payment_amount:
+          title: 'Total amount'
+          description: 'Total amount'
+          type: integer
+          example: 12000
+        payment_proof:
+          title: 'Payment proof'
+          description: 'URL of image of payment proof'
+          type: string
+          example: 'http://localhost/images/12345678.png'
+        bank_name:
+          title: 'Bank name'
+          description: 'Bank name'
+          type: string
+          example: Mandiri
+        bank_account:
+          title: 'Bank account'
+          description: 'Bank account'
+          type: string
+          example: '123456789'
+        created_at:
+          title: 'Created at'
+          description: 'Created at'
+          type: string
+          format: datetime
+          example: '2020-11-27 01:55:43'
+        updated_at:
+          title: 'Updated at'
+          description: 'Updated at'
+          type: string
+          format: datetime
+          example: '2020-11-27 01:55:43'
+      type: object
+      xml:
+        name: Payment
+    Ticket:
+      title: Ticket
+      description: 'Ticket model'
+      properties:
+        id:
+          title: ID
+          description: ID
+          type: integer
+          format: int64
+          example: 1
+        user_id:
+          title: 'User ID'
+          description: 'User ID'
+          type: string
+          example: 1
+        order_id:
+          title: 'Order ID'
+          description: 'Order ID'
+          type: string
+          example: 1
+        bus_name:
+          title: bus_name
+          description: 'Bus name'
+          type: string
+          example: 'Sumber Selamat'
+        ticket_amount:
+          title: ticket_amount
+          description: 'Amount of the ticket'
+          type: integer
+          example: 1
+        seat_position:
+          title: seat_position
+          description: 'Seat position'
+          type: string
+          example: A1
+        departure_city:
+          title: departure_city
+          description: 'Departure city'
+          type: string
+          example: Surabaya
+        departure_bus_station:
+          title: departure_bus_station
+          description: 'Departure bus station name'
+          type: string
+          example: Purabaya
+        departure_date:
+          title: departure_date
+          description: 'Departure date time'
+          type: string
+          format: date-time
+          example: '2020-11-27 01:55:43'
+        arrived_city:
+          title: arrived_city
+          description: 'Arrived city'
+          type: string
+          example: Yogyakarta
+        arrived_bus_station:
+          title: arrived_bus_station
+          description: 'Arrived bus station name'
+          type: string
+          example: Lempuyangan
+        arrived_date:
+          title: arrived_date
+          description: 'Arrived date time'
+          type: string
+          format: date-time
+          example: '2020-11-27 01:55:43'
+        total_price:
+          title: total_price
+          description: 'Total price'
+          type: integer
+          example: 12000
+        created_at:
+          title: 'Created at'
+          description: 'Created at'
+          type: string
+          format: datetime
+          example: '2020-11-27 01:55:43'
+        updated_at:
+          title: 'Updated at'
+          description: 'Updated at'
+          type: string
+          format: datetime
+          example: '2020-11-27 01:55:43'
+      type: object
+      xml:
+        name: Ticket
     User:
       title: User
       description: 'User model'
@@ -221,42 +676,6 @@ components:
       type: object
       xml:
         name: User
-    RegisterRequest:
-      title: 'Register Request'
-      description: 'Register request body data'
-      required:
-        - email
-        - password
-        - password_confirmation
-        - age
-        - city
-      properties:
-        email:
-          title: email
-          description: Email
-          type: string
-          example: johndoe@mail.com
-        password:
-          title: password
-          description: Password
-          type: string
-          example: yourpassword
-        password_confirmation:
-          title: password_confirmation
-          description: 'Password confirmation'
-          type: string
-          example: yourpassword
-        age:
-          title: age
-          description: Age
-          type: integer
-          example: 18
-        city:
-          title: city
-          description: City
-          type: string
-          example: 'Los Angeles'
-      type: object
   securitySchemes:
     bearerAuth:
       type: http
@@ -268,5 +687,17 @@ tags:
   -
     name: Authentication
     description: 'All authentication methods (login, register, logout, etc)'
+  -
+    name: User
+    description: 'All about users'
+  -
+    name: Order
+    description: 'All about orders'
+  -
+    name: Payment
+    description: 'All about payments'
+  -
+    name: Ticket
+    description: 'All about ticket'
 security:
   - []

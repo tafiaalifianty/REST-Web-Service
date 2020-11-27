@@ -7,7 +7,7 @@
  *     title="Bus Ticket RESTful API Documentation",
  *     termsOfService="http://swagger.io/terms/",
  *     @OA\Contact(
- *         email="ayungavis@gmail.com"
+ *         email="tafiaalifianty@students.itb.ac.id"
  *     ),
  *     @OA\License(
  *         name="Apache 2.0",

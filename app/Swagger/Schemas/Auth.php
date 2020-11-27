@@ -51,7 +51,7 @@ class Auth
    *      description="User data",
    * )
    *
-   * @var \App\Virtual\Models\User
+   * @var \App\Swagger\Schemas\User
    */
   public $user;
 }

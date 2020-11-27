@@ -2,15 +2,15 @@
 
 /**
  * @OA\Schema(
- *     title="User",
- *     description="User model",
+ *     title="Payment",
+ *     description="Payment model",
  *     @OA\Xml(
- *         name="User"
+ *         name="Payment"
  *     )
  * )
  */
 
-class User {
+class Payment {
   /**
    * @OA\Property(
    *     title="ID",
@@ -25,60 +25,69 @@ class User {
 
    /**
    * @OA\Property(
-   *      title="Name",
-   *      description="Name of the user",
-   *      example="John Doe"
+   *      title="User ID",
+   *      description="User ID",
+   *      example=1
    * )
    *
    * @var string
    */
-  public $name; 
+  public $user_id; 
 
   /**
    * @OA\Property(
-   *      title="Email",
-   *      description="Email of the user",
-   *      example="johndoe@mail.com"
+   *      title="Order ID",
+   *      description="Order ID",
+   *      example=1
    * )
    *
    * @var string
    */
-  public $email; 
+  public $order_id; 
 
   /**
    * @OA\Property(
-   *      title="Email verified datetime",
-   *      description="Email verified datetime of the user",
-   *      example="2020-11-27 01:55:43",
-   *      format="datetime",
-   *      type="string"
-   * )
-   *
-   * @var \DateTime
-   */
-  public $email_verified_at;
-
-  /**
-   * @OA\Property(
-   *      title="Age",
-   *      description="Age of the user",
-   *      example="1",
+   *      title="Total amount",
+   *      description="Total amount",
+   *      example=12000,
    * )
    *
    * @var integer
    */
-  public $age; 
+  public $payment_amount; 
 
   /**
    * @OA\Property(
-   *      title="City",
-   *      description="City of the user",
-   *      example="Los Angeles"
+   *      title="Payment proof",
+   *      description="URL of image of payment proof",
+   *      example="http://localhost/images/12345678.png"
    * )
    *
    * @var string
    */
-  public $city; 
+  public $payment_proof; 
+
+  /**
+   * @OA\Property(
+   *      title="Bank name",
+   *      description="Bank name",
+   *      example="Mandiri"
+   * )
+   *
+   * @var string
+   */
+  public $bank_name; 
+
+  /**
+   * @OA\Property(
+   *      title="Bank account",
+   *      description="Bank account",
+   *      example="123456789"
+   * )
+   *
+   * @var string
+   */
+  public $bank_account; 
 
   /**
    * @OA\Property(

@@ -9,6 +9,33 @@ use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/pembelian/{id}",
+     *     tags={"Order"},
+     *     summary="Get order detail",
+     *     description="Get order detail",
+     *     operationId="order/id",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *          response=200,
+     *          description="Order data",
+     *          @OA\JsonContent(ref="#/components/schemas/Order")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Data not found",
+     *     ),
+     *     @OA\Response(
+     *         response=405,
+     *         description="Method not allowed (Unauthenticated)",
+     *     ),
+     *     @OA\Response(
+     *        response=500,
+     *        description="Internal server error"
+     *     )
+     * )
+     */
     public function show($id)
     {
         $order = Order::pimp()->find($id);
@@ -25,6 +52,37 @@ class OrderController extends Controller
         ], 200);
     }
 
+    /**
+     * @OA\post(
+     *     path="/pembelian/{user_id}",
+     *     tags={"Order"},
+     *     summary="Create order",
+     *     description="Create order",
+     *     operationId="order/user_id",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/OrderRequest")
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Order data",
+     *          @OA\JsonContent(ref="#/components/schemas/Order")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Validation errors",
+     *     ),
+     *     @OA\Response(
+     *         response=405,
+     *         description="Method not allowed (Unauthenticated)",
+     *     ),
+     *     @OA\Response(
+     *        response=500,
+     *        description="Internal server error"
+     *     )
+     * )
+     */
     public function store(Request $request, $user_id)
     {
         $validator = Validator::make($request->all(), [

@@ -17,6 +17,41 @@ class PaymentController extends Controller
         $this->uuid = Uuid::uuid4();
     }
 
+    /**
+     * @OA\post(
+     *     path="/pembayaran/{order_id}",
+     *     tags={"Payment"},
+     *     summary="Create payment",
+     *     description="Create payment",
+     *     operationId="payment/order_id",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/PaymentRequest")
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Payment data",
+     *          @OA\JsonContent(ref="#/components/schemas/Payment")
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Validation errors",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Data not found",
+     *     ),
+     *     @OA\Response(
+     *         response=405,
+     *         description="Method not allowed (Unauthenticated)",
+     *     ),
+     *     @OA\Response(
+     *        response=500,
+     *        description="Internal server error"
+     *     )
+     * )
+     */
     public function store(Request $request, $order_id)
     {
         $validator = Validator::make($request->all(), [

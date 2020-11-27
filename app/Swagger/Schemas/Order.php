@@ -2,15 +2,15 @@
 
 /**
  * @OA\Schema(
- *     title="User",
- *     description="User model",
+ *     title="Order",
+ *     description="Order model",
  *     @OA\Xml(
- *         name="User"
+ *         name="Order"
  *     )
  * )
  */
 
-class User {
+class Order {
   /**
    * @OA\Property(
    *     title="ID",
@@ -25,60 +25,36 @@ class User {
 
    /**
    * @OA\Property(
-   *      title="Name",
-   *      description="Name of the user",
-   *      example="John Doe"
+   *      title="User ID",
+   *      description="User ID",
+   *      example=1
    * )
    *
    * @var string
    */
-  public $name; 
+  public $user_id; 
 
   /**
    * @OA\Property(
-   *      title="Email",
-   *      description="Email of the user",
-   *      example="johndoe@mail.com"
-   * )
-   *
-   * @var string
-   */
-  public $email; 
-
-  /**
-   * @OA\Property(
-   *      title="Email verified datetime",
-   *      description="Email verified datetime of the user",
-   *      example="2020-11-27 01:55:43",
-   *      format="datetime",
-   *      type="string"
-   * )
-   *
-   * @var \DateTime
-   */
-  public $email_verified_at;
-
-  /**
-   * @OA\Property(
-   *      title="Age",
-   *      description="Age of the user",
-   *      example="1",
+   *      title="Total price",
+   *      description="Total price",
+   *      example=12000,
    * )
    *
    * @var integer
    */
-  public $age; 
+  public $total_price; 
 
   /**
    * @OA\Property(
-   *      title="City",
-   *      description="City of the user",
-   *      example="Los Angeles"
+   *      title="Status",
+   *      description="Order status",
+   *      example="waiting_payment"
    * )
    *
    * @var string
    */
-  public $city; 
+  public $status; 
 
   /**
    * @OA\Property(

@@ -20,11 +20,10 @@ Bus Ticket RESTful API was developed for complete an assignment. This project wa
 
 This is the API documentation of this project:
 
-- Postman: <a href="https://documenter.getpostman.com/view/6501660/TVmHFfUH" target="__blank">click here</a>
-- Swagger: 
-
-  -- Development: `http://localhost:8000/api/documentation`
-  -- Live: <a href="https://bus-ticket-rest-api.herokuapp.com/api/documentation" target="__blank">click here</a>
+1. Postman: <a href="https://documenter.getpostman.com/view/6501660/TVmHFfUH" target="__blank">click here</a>
+2. Swagger: 
+- Development: `http://localhost:8000/api/documentation`
+- Live: <a href="https://bus-ticket-rest-api.herokuapp.com/api/documentation" target="__blank">click here</a>
 
 ## Prerequisites
 

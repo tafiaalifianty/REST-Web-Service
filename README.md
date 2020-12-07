@@ -53,7 +53,7 @@ bd50f1caa8fd        nginx:alpine           "/docker-entrypoint.…"   7 hours ag
 
 5. Generate new key `$ docker-compose exec app php artisan key:generate`
 6. Generate JWT secret key `$ docker-compose exec app php artisan jwt:secret`
-7. Clear the config cache `$ docker-compose exec app php artisan cofig:clear`
+7. Clear the config cache `$ docker-compose exec app php artisan config:clear`
 8. Migrate the database `$ docker-compose exec app php artisan migrate`
 9.  Done, you can check `http://localhost:8000` in your browser
 10. If it's show Laravel Homepage, it's work!

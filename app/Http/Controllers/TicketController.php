@@ -9,7 +9,7 @@ class TicketController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/ticket/{id}",
+     *     path="/ticket/1",
      *     tags={"Ticket"},
      *     summary="Get ticket detail",
      *     description="Get ticket detail",
@@ -52,7 +52,7 @@ class TicketController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/ticket/user/{user_id}",
+     *     path="/ticket/user/1",
      *     tags={"Ticket"},
      *     summary="Get user's ticket",
      *     description="Get user's ticket",

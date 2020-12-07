@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/pembelian/{id}",
+     *     path="/pembelian/1",
      *     tags={"Order"},
      *     summary="Get order detail",
      *     description="Get order detail",
@@ -54,7 +54,7 @@ class OrderController extends Controller
 
     /**
      * @OA\post(
-     *     path="/pembelian/{user_id}",
+     *     path="/pembelian/1",
      *     tags={"Order"},
      *     summary="Create order",
      *     description="Create order",

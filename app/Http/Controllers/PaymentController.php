@@ -19,7 +19,7 @@ class PaymentController extends Controller
 
     /**
      * @OA\post(
-     *     path="/pembayaran/{order_id}",
+     *     path="/pembayaran/1",
      *     tags={"Payment"},
      *     summary="Create payment",
      *     description="Create payment",

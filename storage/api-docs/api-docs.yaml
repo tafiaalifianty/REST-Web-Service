@@ -125,7 +125,7 @@ paths:
       security:
         -
           bearerAuth: []
-  '/pembelian/{id}':
+  /pembelian/1:
     get:
       tags:
         - Order
@@ -148,7 +148,6 @@ paths:
       security:
         -
           bearerAuth: []
-  '/pembelian/{user_id}':
     post:
       tags:
         - Order
@@ -177,7 +176,7 @@ paths:
       security:
         -
           bearerAuth: []
-  '/pembayaran/{order_id}':
+  /pembayaran/1:
     post:
       tags:
         - Payment
@@ -208,7 +207,7 @@ paths:
       security:
         -
           bearerAuth: []
-  '/ticket/{id}':
+  /ticket/1:
     get:
       tags:
         - Ticket
@@ -231,7 +230,7 @@ paths:
       security:
         -
           bearerAuth: []
-  '/ticket/user/{user_id}':
+  /ticket/user/1:
     get:
       tags:
         - Ticket
@@ -254,7 +253,7 @@ paths:
       security:
         -
           bearerAuth: []
-  '/users/{id}':
+  /users/1:
     get:
       tags:
         - User

@@ -194,7 +194,7 @@
                 ]
             }
         },
-        "/pembelian/{id}": {
+        "/pembelian/1": {
             "get": {
                 "tags": [
                     "Order"
@@ -228,9 +228,7 @@
                         "bearerAuth": []
                     }
                 ]
-            }
-        },
-        "/pembelian/{user_id}": {
+            },
             "post": {
                 "tags": [
                     "Order"
@@ -276,7 +274,7 @@
                 ]
             }
         },
-        "/pembayaran/{order_id}": {
+        "/pembayaran/1": {
             "post": {
                 "tags": [
                     "Payment"
@@ -325,7 +323,7 @@
                 ]
             }
         },
-        "/ticket/{id}": {
+        "/ticket/1": {
             "get": {
                 "tags": [
                     "Ticket"
@@ -361,7 +359,7 @@
                 ]
             }
         },
-        "/ticket/user/{user_id}": {
+        "/ticket/user/1": {
             "get": {
                 "tags": [
                     "Ticket"
@@ -397,7 +395,7 @@
                 ]
             }
         },
-        "/users/{id}": {
+        "/users/1": {
             "get": {
                 "tags": [
                     "User"

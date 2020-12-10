@@ -49,4 +49,23 @@ class UserController extends Controller
             'data' => $user
         ], 200);
     }
+
+    public function update(Request $request, $id) {
+        $user = User::find($id);
+        $requestData = $request->all();
+        $user->update($requestData);
+        return response()->json([
+            'status' => 200,
+            'data' => $requestData
+        ], 201);
+    }
+
+    public function delete($id) {
+        $user = User::find($id);
+        $user->delete;
+        return response()->json([
+            'status' => 200,
+            'data' => 'User with ' . $id . ' successfully deleted'
+        ], 201);
+    }
 }

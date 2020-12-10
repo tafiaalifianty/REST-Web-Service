@@ -64,6 +64,15 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function delete()
+    {
+        $this->tickets()->delete();
+        $this->snapshots()->delete();
+        $this->orders()->delete();
+        $this->payments()->delete();
+        return parent::delete();
+    }
+
     public function tickets() 
     {
         return $this->hasMany('App\Models\Ticket', 'user_id');

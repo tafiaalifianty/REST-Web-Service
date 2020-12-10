@@ -29,6 +29,7 @@ Route::group(['prefix' => 'v1'], function ($router) {
 
     Route::group(['middleware' => 'auth:api', 'prefix' => 'users'], function ($router) {
         Route::get('/{id}', [UserController::class, 'show']);
+        Route::patch('/update/{id}', [UserController::class, 'update']);
     });
 
     Route::group(['middleware' => 'auth:api', 'prefix' => 'ticket'], function ($router) {
@@ -42,4 +43,6 @@ Route::group(['prefix' => 'v1'], function ($router) {
     });
     
     Route::post('/pembayaran/{order_id}', [PaymentController::class, 'store'])->middleware('auth:api');
+    Route::delete('/delete/{id}', [UserController::class, 'delete']);
+
 });

@@ -9,7 +9,7 @@
 </p>
 
 ## Must Read
-Saat mencoba Web Service yang sudah dideploy pada https://bus-ticket-rest-api.herokuapp.com/ mohon saat akan testing bagian "Get Member" untuk melihat User ID yang didapatkan dengan Send Request via Postman karena User ID dibagikan secara acak tiap ada User yg melakukan Register dan pada Interface tidak ditampilkan berapa User ID dari tiap User.
+Saat mencoba Web Service yang sudah dideploy pada https://bus-ticket-rest-api.herokuapp.com/ mohon saat akan mencoba bagian yang membutuhkan ID Member atau User ID untuk melihat berapa User ID yang didapatkan dengan Send Request via Postman karena pada Interface tidak ditampilkan berapa User ID atau ID Member yang didapatkan dari tiap User.
 
 ## About
 

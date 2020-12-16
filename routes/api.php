@@ -20,16 +20,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1'], function ($router) {
     Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
-        Route::post('/register', [AuthController::class, 'register'])->name('register');
-        Route::post('/login', [AuthController::class, 'login'])->name('login');
-        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-        Route::post('/refresh', [AuthController::class, 'refresh'])->name('refresh');
-        Route::get('/me', [AuthController::class, 'me'])->name('me');
+        Route::post('/register', [AuthController::class, 'register'])->name('api.register');
+        Route::post('/login', [AuthController::class, 'login'])->name('api.login');
+        Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');
+        Route::post('/refresh', [AuthController::class, 'refresh'])->name('api.refresh');
+        Route::get('/me', [AuthController::class, 'me'])->name('api.me');
     });
 
     Route::group(['middleware' => 'auth:api', 'prefix' => 'users'], function ($router) {
-        Route::get('/{id}', [UserController::class, 'show']);
-        Route::patch('/update/{id}', [UserController::class, 'update']);
+        Route::get('/{id}', [UserController::class, 'show'])->name('api.user');
+        Route::patch('/update/{id}', [UserController::class, 'update'])->name('api.update');
     });
 
     Route::group(['middleware' => 'auth:api', 'prefix' => 'ticket'], function ($router) {
@@ -41,8 +41,12 @@ Route::group(['prefix' => 'v1'], function ($router) {
         Route::get('/{id}', [OrderController::class, 'show']);
         Route::post('/{user_id}', [OrderController::class, 'store']);
     });
-    
+
     Route::post('/pembayaran/{order_id}', [PaymentController::class, 'store'])->middleware('auth:api');
     Route::delete('/delete/{id}', [UserController::class, 'delete']);
 
+});
+
+Route::get('/tes', function () {
+    return "Oke";
 });

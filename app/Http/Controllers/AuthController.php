@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function __construct() 
+    public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
@@ -45,13 +45,13 @@ class AuthController extends Controller
      *     )
      * )
      */
-    public function login(Request $request) 
+    public function login(Request $request)
     {
     	$validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:6',
         ]);
-        
+
         if ($validator->fails()) {
             return response()->json([
                 'status' => 400,
@@ -60,6 +60,7 @@ class AuthController extends Controller
         }
 
         if (!$token = Auth::attempt($validator->validated())) {
+            session(['key_jwt' => $token]);
             return response()->json([
                 'status' => 401,
                 'message' => 'Email belum terdaftar'
@@ -99,8 +100,9 @@ class AuthController extends Controller
      *     )
      * )
      */
-    public function register(Request $request) 
+    public function register(Request $request)
     {
+        // var_dump($request->all()); die();
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
@@ -117,7 +119,7 @@ class AuthController extends Controller
         }
 
         DB::beginTransaction();
-        
+
         try {
             User::create(array_merge($validator->validated(), ['password' => bcrypt($request->password)]));
             $token = Auth::attempt($validator->validated());
@@ -156,7 +158,7 @@ class AuthController extends Controller
      *     )
      * )
      */
-    public function logout() 
+    public function logout()
     {
         Auth::logout();
         return response()->json([
@@ -188,7 +190,7 @@ class AuthController extends Controller
      *     )
      * )
      */
-    public function refresh() 
+    public function refresh()
     {
         return $this->createNewToken(Auth::refresh());
     }
@@ -216,7 +218,7 @@ class AuthController extends Controller
      *     )
      * )
      */
-    public function me() 
+    public function me()
     {
         return response()->json([
             'status' => 200,
@@ -231,7 +233,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function createNewToken($token) 
+    protected function createNewToken($token)
     {
         return response()->json([
             'status' => 200,

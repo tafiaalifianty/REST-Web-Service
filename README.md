@@ -8,6 +8,9 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Must Read
+Saat mencoba Web Service yang sudah dideploy pada https://bus-ticket-rest-api.herokuapp.com/ mohon saat akan testing bagian "Get Member" untuk melihat User ID yang didapatkan dengan Send Request via Postman karena User ID dibagikan secara acak tiap ada User yg melakukan Register dan pada Interface tidak ditampilkan berapa User ID dari tiap User.
+
 ## About
 
 Bus Ticket RESTful API was developed for complete an assignment. This project was created using Laravel Framework with some add-ons like:
